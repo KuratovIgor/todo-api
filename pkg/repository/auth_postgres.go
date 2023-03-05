@@ -2,7 +2,7 @@ package repository
 
 import (
 	"fmt"
-	go_rest_api "github.com/KuratovIgor/go-todo-api"
+	todo_api "github.com/KuratovIgor/todo-api"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -14,7 +14,7 @@ func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
 	return &AuthPostgres{db: db}
 }
 
-func (r *AuthPostgres) CreateUser(user go_rest_api.User) (int, error) {
+func (r *AuthPostgres) CreateUser(user todo_api.User) (int, error) {
 	var id int
 
 	query := fmt.Sprintf("INSERT INTO %s (name, username, password_hash) values ($1, $2, $3) RETURNING id", usersTable)
@@ -27,8 +27,8 @@ func (r *AuthPostgres) CreateUser(user go_rest_api.User) (int, error) {
 	return id, nil
 }
 
-func (r *AuthPostgres) GetUser(username, password string) (go_rest_api.User, error) {
-	var user go_rest_api.User
+func (r *AuthPostgres) GetUser(username, password string) (todo_api.User, error) {
+	var user todo_api.User
 
 	query := fmt.Sprintf("SELECT id FROM %s WHERE username=$1 and password_hash=$2", usersTable)
 	err := r.db.Get(&user, query, username, password)

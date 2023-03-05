@@ -1,4 +1,4 @@
-package go_rest_api
+package todo_api
 
 type TodoList struct {
 	Id          int    `json:"id" db:"id"`

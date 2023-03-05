@@ -1,4 +1,4 @@
-package go_rest_api
+package todo_api
 
 import (
 	"context"

@@ -1,19 +1,19 @@
 package repository
 
 import (
-	go_rest_api "github.com/KuratovIgor/go-todo-api"
+	todo_api "github.com/KuratovIgor/todo-api"
 	"github.com/jmoiron/sqlx"
 )
 
 type Authorization interface {
-	CreateUser(user go_rest_api.User) (int, error)
-	GetUser(username, password string) (go_rest_api.User, error)
+	CreateUser(user todo_api.User) (int, error)
+	GetUser(username, password string) (todo_api.User, error)
 }
 
 type TodoList interface {
-	Create(userId int, list go_rest_api.TodoList) (int, error)
-	GetAll(userId int) ([]go_rest_api.TodoList, error)
-	GetById(userId int, listId int) (go_rest_api.TodoList, error)
+	Create(userId int, list todo_api.TodoList) (int, error)
+	GetAll(userId int) ([]todo_api.TodoList, error)
+	GetById(userId int, listId int) (todo_api.TodoList, error)
 }
 
 type TodoItem interface {

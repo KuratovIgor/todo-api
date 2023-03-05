@@ -1,13 +1,13 @@
 package handler
 
 import (
-	go_rest_api "github.com/KuratovIgor/go-todo-api"
+	todo_api "github.com/KuratovIgor/todo-api"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func (h *Handler) signUp(c *gin.Context) {
-	var input go_rest_api.User
+	var input todo_api.User
 
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())

@@ -1,18 +1,18 @@
 package handler
 
 import (
-	go_rest_api "github.com/KuratovIgor/go-todo-api"
+	todo_api "github.com/KuratovIgor/todo-api"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
 
 type getAllListsResponse struct {
-	Data []go_rest_api.TodoList `json:"data"`
+	Data []todo_api.TodoList `json:"data"`
 }
 
 type getListByIdResponse struct {
-	Data go_rest_api.TodoList `json:"data"`
+	Data todo_api.TodoList `json:"data"`
 }
 
 func (h *Handler) createList(c *gin.Context) {
@@ -21,7 +21,7 @@ func (h *Handler) createList(c *gin.Context) {
 		return
 	}
 
-	var input go_rest_api.TodoList
+	var input todo_api.TodoList
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return

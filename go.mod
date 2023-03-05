@@ -1,4 +1,4 @@
-module github.com/KuratovIgor/go-todo-api
+module github.com/KuratovIgor/todo-api
 
 go 1.19
 

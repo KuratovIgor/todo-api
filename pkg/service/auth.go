@@ -4,8 +4,8 @@ import (
 	"crypto/sha1"
 	"errors"
 	"fmt"
-	go_rest_api "github.com/KuratovIgor/go-todo-api"
-	"github.com/KuratovIgor/go-todo-api/pkg/repository"
+	todo_api "github.com/KuratovIgor/todo-api"
+	"github.com/KuratovIgor/todo-api/pkg/repository"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )
@@ -29,7 +29,7 @@ func NewAuthService(repo repository.Authorization) *AuthService {
 	return &AuthService{repo: repo}
 }
 
-func (s *AuthService) CreateUser(user go_rest_api.User) (int, error) {
+func (s *AuthService) CreateUser(user todo_api.User) (int, error) {
 	user.Password = generatePasswordHash(user.Password)
 	return s.repo.CreateUser(user)
 }

@@ -1,4 +1,4 @@
-package go_rest_api
+package todo_api
 
 type User struct {
 	Id       int    `json:"-" db:"id"`

@@ -1,10 +1,10 @@
 package main
 
 import (
-	go_rest_api "github.com/KuratovIgor/go-todo-api"
-	"github.com/KuratovIgor/go-todo-api/pkg/handler"
-	"github.com/KuratovIgor/go-todo-api/pkg/repository"
-	"github.com/KuratovIgor/go-todo-api/pkg/service"
+	todo_api "github.com/KuratovIgor/todo-api"
+	"github.com/KuratovIgor/todo-api/pkg/handler"
+	"github.com/KuratovIgor/todo-api/pkg/repository"
+	"github.com/KuratovIgor/todo-api/pkg/service"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
@@ -40,7 +40,7 @@ func main() {
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
-	srv := new(go_rest_api.Server)
+	srv := new(todo_api.Server)
 	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
 		logrus.Fatal("err running server")
 	}
