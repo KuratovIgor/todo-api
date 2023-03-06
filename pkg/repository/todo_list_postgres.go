@@ -5,6 +5,7 @@ import (
 	todo_api "github.com/KuratovIgor/todo-api"
 	"github.com/jmoiron/sqlx"
 	"log"
+	"strings"
 )
 
 type TodoListPostgres struct {
@@ -59,4 +60,40 @@ func (r *TodoListPostgres) GetById(userId int, listId int) (todo_api.TodoList, e
 	err := r.db.Get(&list, getListsQuery, userId, listId)
 
 	return list, err
+}
+
+func (r *TodoListPostgres) Update(userId int, listId int, list todo_api.UpdateListInput) error {
+	setValues := make([]string, 0)
+	args := make([]interface{}, 0)
+	argId := 1
+
+	if list.Title != nil {
+		setValues = append(setValues, fmt.Sprintf("title=$%d", argId))
+		args = append(args, *list.Title)
+		argId++
+	}
+
+	if list.Description != nil {
+		setValues = append(setValues, fmt.Sprintf("description=$%d", argId))
+		args = append(args, *list.Description)
+		argId++
+	}
+
+	setQuery := strings.Join(setValues, ", ")
+
+	updateListQuery := fmt.Sprintf("UPDATE %s tl SET %s FROM %s ul WHERE tl.id = ul.list_id AND ul.list_id=$%d AND ul.user_id=$%d",
+		todoListsTable, setQuery, usersListsTable, argId, argId+1)
+	args = append(args, listId, userId)
+
+	_, err := r.db.Exec(updateListQuery, args...)
+
+	return err
+}
+
+func (r *TodoListPostgres) Delete(userId int, listId int) error {
+	deleteQuery := fmt.Sprintf("DELETE FROM %s tl USING %s ul WHERE tl.id = ul.list_id AND ul.user_id=$1 AND ul.list_id=$2",
+		todoListsTable, usersListsTable)
+	_, err := r.db.Exec(deleteQuery, userId, listId)
+
+	return err
 }

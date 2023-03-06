@@ -8,7 +8,7 @@ CREATE TABLE users
 
 CREATE TABLE todo_lists
 (
-    id serial not null uniqu
+    id serial not null unique,
     title varchar(255) not null,
     description varchar(255)
 );
