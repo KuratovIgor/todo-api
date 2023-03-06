@@ -10,6 +10,7 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -57,6 +58,7 @@ func main() {
 	srv := new(todo_api.Server)
 	go func() {
 		if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
+			log.Println(err)
 			logrus.Fatal("err running server")
 		}
 	}()
