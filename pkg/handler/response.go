@@ -22,6 +22,14 @@ type getListByIdResponse struct {
 	Data todo_api.TodoList `json:"data"`
 }
 
+type getAllItemsResponse struct {
+	Data []todo_api.TodoItem `json:"data"`
+}
+
+type getItemByIdResponse struct {
+	Data todo_api.TodoItem `json:"data"`
+}
+
 func newErrorResponse(c *gin.Context, statusCode int, message string) {
 	logrus.Error(message)
 
