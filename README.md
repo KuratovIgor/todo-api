@@ -1,7 +1,5 @@
 # Todo API
 
----
-
 ### Simple REST API for working with to-do lists.
 ### Project implementation is built on REST and based on clean architecture.
 ## Project structue:
